@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using _2110_Sep2022;
 using Microsoft.Data.SqlClient;
           
 namespace Sept2022.SqlDataAccess
@@ -18,7 +19,7 @@ namespace Sept2022.SqlDataAccess
         /// Assignment 1
         /// </summary>
         /// <param name="employee"></param>
-        public void Add( employee)
+        public void Add(Employee employee)
         {
 
         }
