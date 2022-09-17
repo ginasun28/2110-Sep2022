@@ -3,7 +3,7 @@ using System.Configuration;
 using System.Collections.Generic;
 using System.Text;
 
-namespace _2110_Sep2022.DataAccess
+namespace Sept2022.SqlDataAccess
 {
     public class ReadConfiguration : IReadConfiguration
     {

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Data.SqlClient;
-
-namespace _2110_Sep2022.DataAccess
+          
+namespace Sept2022.SqlDataAccess
 {
     public class EmployeeRepository
     {
@@ -18,7 +18,7 @@ namespace _2110_Sep2022.DataAccess
         /// Assignment 1
         /// </summary>
         /// <param name="employee"></param>
-        public void Add(Employee employee)
+        public void Add( employee)
         {
 
         }

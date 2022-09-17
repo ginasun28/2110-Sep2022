@@ -1,6 +1,7 @@
 ﻿using _2110_Sep2022.DataAccess;
 using System;
 using Microsoft.Data.SqlClient;
+using _2110_Sep2022.TableStorage;
 
 namespace _2110_Sep2022
 {
@@ -9,7 +10,37 @@ namespace _2110_Sep2022
         static void Main(string[] args)
         {
 
+            // new Program().AddCustomerAccount();
+            // new Program().GetCustomerAccount();
+            new Program().Query();
+        }
 
+        public void Query()
+        {
+            var accounts = new TableStorageManager().Query("C002");
+
+            foreach (var account in accounts)
+            {
+                Console.WriteLine(string.Format("{0}-{1}-{2}", account.PartitionKey, account.RowKey, account.InterestRate));
+            }
+        }
+
+        public void AddCustomerAccount()
+        {
+            var customerAccount = new CustomerAccount()
+            {
+                PartitionKey = "C002",  // Customer ID - has to be Unique ID
+                RowKey = "200312",      // Account ID - has to be Unique for each customer
+                InterestRate = 2,
+                IsAccountActive = true,
+            };
+
+            new TableStorageManager().Add(customerAccount);
+        }
+
+        public void GetCustomerAccount()
+        {
+            new TableStorageManager().Get("C002", "100200");
         }
 
         public void CreateTable()
