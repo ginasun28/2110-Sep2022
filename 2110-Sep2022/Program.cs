@@ -7,6 +7,9 @@ namespace _2110_Sep2022
 {
     class Program
     {
+        private static string tableName = "CustomerAccount";
+        private StorageConfiguration storageConfiguration = new StorageConfiguration();
+
         static void Main(string[] args)
         {
 
@@ -17,7 +20,8 @@ namespace _2110_Sep2022
 
         public void Query()
         {
-            var accounts = new TableStorageManager().Query("C002");
+            var accounts = new CustomerAccountTableStorageRepository(this.storageConfiguration, tableName)
+                .Query("C013");
 
             foreach (var account in accounts)
             {
@@ -29,18 +33,19 @@ namespace _2110_Sep2022
         {
             var customerAccount = new CustomerAccount()
             {
-                PartitionKey = "C002",  // Customer ID - has to be Unique ID
-                RowKey = "200312",      // Account ID - has to be Unique for each customer
+                PartitionKey = "C013",  // Customer ID - has to be Unique ID
+                RowKey = "200002",      // Account ID - has to be Unique for each customer
                 InterestRate = 2,
                 IsAccountActive = true,
             };
 
-            new TableStorageManager().Add(customerAccount);
+            new CustomerAccountTableStorageRepository(this.storageConfiguration, tableName).Add(customerAccount);
         }
 
         public void GetCustomerAccount()
         {
-            new TableStorageManager().Get("C002", "100200");
+            var customer = new CustomerAccountTableStorageRepository(this.storageConfiguration, tableName).Get("C013", "200002");
+            Console.WriteLine($"{customer.PartitionKey}, {customer.RowKey}, {customer.InterestRate}");
         }
 
         public void CreateTable()
