@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using _2110_Sep2022.Common;
 
-namespace _2110_Sep2022.TableStorage
+namespace _2110_Sep2022.Common
 {
     public class StorageConfiguration : IStorageConfiguration
     {

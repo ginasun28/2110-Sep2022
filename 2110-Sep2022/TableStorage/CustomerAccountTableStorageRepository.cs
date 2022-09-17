@@ -1,7 +1,5 @@
-﻿using Azure.Data.Tables;
-using System;
+﻿using _2110_Sep2022.Common;
 using System.Collections.Generic;
-using System.Text;
 
 namespace _2110_Sep2022.TableStorage
 {
