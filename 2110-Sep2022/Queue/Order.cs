@@ -9,6 +9,7 @@ namespace _2110_Sep2022.Queue
         public string OrderID { get; set; }
         public string CustomerID { get; set; }
         public DateTime OrderDateTime { get; set; }
+        public List<Address> DeliveryAddresses { get; set; }
 
         public override string ToString()
         {

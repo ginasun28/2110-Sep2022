@@ -4,6 +4,8 @@ using _2110_Sep2022.TableStorage;
 using Sept2022.SqlDataAccess;
 using _2110_Sep2022.Common;
 using _2110_Sep2022.Queue;
+using System.Text.Json;
+using System.Collections.Generic;
 
 namespace _2110_Sep2022
 {
@@ -15,17 +17,43 @@ namespace _2110_Sep2022
 
         static void Main(string[] args)
         {
+            var address1 = new Address() 
+            { 
+                NumberAndStreet = "1189 Howe ST", 
+                Unit = "1002", 
+                City = "Vancouver", 
+                PostalCode = "V6Z2X4", 
+                Province = "BC", 
+                Country = "Canada" 
+            };
+            var address2 = new Address()
+            {
+                NumberAndStreet = "2159 Broughton ST",
+                Unit = "1980",
+                City = "Vancouver",
+                PostalCode = "V6Z2W4",
+                Province = "BC",
+                Country = "Canada"
+            };
+
+            var serializedOrder = new Program().Serialize(new Order() 
+            { 
+                OrderID = "001", CustomerID = "C1200", OrderDateTime = DateTime.UtcNow,
+                DeliveryAddresses = new List<Address>() { address1, address2 }
+            });
+
+            var order = new Program().Desrialize(serializedOrder);
 
             // new Program().AddCustomerAccount();
             // new Program().GetCustomerAccount();
             // new Program().Query();
 
-            new Program().EnqueueMessage("892123", "I19101");
-            new Program().EnqueueMessage("890167", "I17701");
-            new Program().EnqueueMessage("890623", "I19101");
-            new Program().EnqueueMessage("890190", "I19121");
-            // new Program().PeekMessage();
-            new Program().DequeueMessage();
+            //new Program().EnqueueMessage("892123", "I19101");
+            //new Program().EnqueueMessage("890167", "I17701");
+            //new Program().EnqueueMessage("890623", "I19101");
+            //new Program().EnqueueMessage("890190", "I19121");
+            //new Program().PeekMessage();
+            //new Program().DequeueMessage();
         }
 
         public void EnqueueMessage(string orderID, string customerID)
@@ -46,7 +74,6 @@ namespace _2110_Sep2022
             var orderQueueRepository = new OrderQueueRepository(this.storageConfiguration, queueName);
             orderQueueRepository.Dequeue();
         }
-
 
         public void Query()
         {
@@ -91,6 +118,22 @@ namespace _2110_Sep2022
             sqlConnection.Open();
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
+        }
+
+        // Serialiation is taking an in-memory object (could be nested) and flattening it into a stream of bytes (XML, JSON, etc.).
+        // Desrialization works the reverse of serialization to reconstruct the object in memory from the data stream.
+        //  typically used for: 
+        //  1 - transmit objects across the network or applications
+        //  2 - store objects to a database or a file e.g. table storage
+
+        public string Serialize(Order order)
+        {
+            return JsonSerializer.Serialize(order);
+        }
+
+        public Order Desrialize(string serializedOrder)
+        {
+            return JsonSerializer.Deserialize<Order>(serializedOrder);
         }
     }
 }
