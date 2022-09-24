@@ -6,6 +6,7 @@ using _2110_Sep2022.Common;
 using _2110_Sep2022.Queue;
 using System.Text.Json;
 using System.Collections.Generic;
+using _2110_Sep2022.BlobStorage;
 
 namespace _2110_Sep2022
 {
@@ -13,18 +14,38 @@ namespace _2110_Sep2022
     {
         private static string tableName = "CustomerAccount";
         private static string queueName = "orderqueue";
+        private static string containerName = "customerfiles";
+        private static string blobName = "customerfiles";
         private IStorageConfiguration storageConfiguration = new StorageConfiguration();
 
         static void Main(string[] args)
         {
-            var address1 = new Address() 
-            { 
-                NumberAndStreet = "1189 Howe ST", 
-                Unit = "1002", 
-                City = "Vancouver", 
-                PostalCode = "V6Z2X4", 
-                Province = "BC", 
-                Country = "Canada" 
+            new Program().TestUploadBlob();
+
+
+            // new Program().TestSerialization();
+            //new Program().AddCustomerAccount();
+            //new Program().GetCustomerAccount();
+            //new Program().Query();
+
+            //new Program().EnqueueMessage("892123", "I19101");
+            //new Program().EnqueueMessage("890167", "I17701");
+            //new Program().EnqueueMessage("890623", "I19101");
+            //new Program().EnqueueMessage("890190", "I19121");
+            //new Program().PeekMessage();
+            //new Program().DequeueMessage();
+        }
+
+        public void TestSerialization()
+        {
+            var address1 = new Address()
+            {
+                NumberAndStreet = "1189 Howe ST",
+                Unit = "1002",
+                City = "Vancouver",
+                PostalCode = "V6Z2X4",
+                Province = "BC",
+                Country = "Canada"
             };
             var address2 = new Address()
             {
@@ -36,24 +57,22 @@ namespace _2110_Sep2022
                 Country = "Canada"
             };
 
-            var serializedOrder = new Program().Serialize(new Order() 
-            { 
-                OrderID = "001", CustomerID = "C1200", OrderDateTime = DateTime.UtcNow,
+            var serializedOrder = new Program().Serialize(new Order()
+            {
+                OrderID = "001",
+                CustomerID = "C1200",
+                OrderDateTime = DateTime.UtcNow,
                 DeliveryAddresses = new List<Address>() { address1, address2 }
             });
 
             var order = new Program().Desrialize(serializedOrder);
+        }
 
-            // new Program().AddCustomerAccount();
-            // new Program().GetCustomerAccount();
-            // new Program().Query();
+        public void TestUploadBlob()
+        {
+            var filePath = "";
+            var customerBlobRepository = new CustomerBlobStorageRepository(this.storageConfiguration, containerName, blobName);
 
-            //new Program().EnqueueMessage("892123", "I19101");
-            //new Program().EnqueueMessage("890167", "I17701");
-            //new Program().EnqueueMessage("890623", "I19101");
-            //new Program().EnqueueMessage("890190", "I19121");
-            //new Program().PeekMessage();
-            //new Program().DequeueMessage();
         }
 
         public void EnqueueMessage(string orderID, string customerID)
@@ -90,7 +109,7 @@ namespace _2110_Sep2022
         {
             var customerAccount = new CustomerAccount()
             {
-                PartitionKey = "C013",  // Customer ID - has to be Unique ID
+                PartitionKey = "C015",  // Customer ID - has to be Unique ID
                 RowKey = "200002",      // Account ID - has to be Unique for each customer
                 InterestRate = 2,
                 IsAccountActive = true,
