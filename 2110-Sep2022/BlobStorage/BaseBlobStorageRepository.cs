@@ -10,19 +10,17 @@ namespace _2110_Sep2022.BlobStorage
     {
         protected IStorageConfiguration storageConfiguration;
         protected string containerName;
-        protected string blobName;
 
 
-        public BaseBlobStorageRepository(IStorageConfiguration storageConfiguration, string containerName, string blobName)
+        public BaseBlobStorageRepository(IStorageConfiguration storageConfiguration, string containerName)
         {
             this.containerName = containerName;
-            this.blobName = blobName;
             this.storageConfiguration = storageConfiguration;
         }
 
-        protected BlobClient GetBlobClient()
+        protected BlobClient GetBlobClient(string blobName)
         {
-            return new BlobClient(storageConfiguration.GetStorageConnectionString(), this.containerName, this.blobName);
+            return new BlobClient(storageConfiguration.GetStorageConnectionString(), this.containerName, blobName);
         }
     }
 }

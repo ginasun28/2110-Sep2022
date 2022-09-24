@@ -7,6 +7,7 @@ using _2110_Sep2022.Queue;
 using System.Text.Json;
 using System.Collections.Generic;
 using _2110_Sep2022.BlobStorage;
+using System.IO;
 
 namespace _2110_Sep2022
 {
@@ -15,12 +16,12 @@ namespace _2110_Sep2022
         private static string tableName = "CustomerAccount";
         private static string queueName = "orderqueue";
         private static string containerName = "customerfiles";
-        private static string blobName = "customerfiles";
         private IStorageConfiguration storageConfiguration = new StorageConfiguration();
 
         static void Main(string[] args)
         {
-            new Program().TestUploadBlob();
+            // new Program().TestDownloadBlob();
+            // new Program().TestUploadBlob();
 
 
             // new Program().TestSerialization();
@@ -70,9 +71,19 @@ namespace _2110_Sep2022
 
         public void TestUploadBlob()
         {
-            var filePath = "";
-            var customerBlobRepository = new CustomerBlobStorageRepository(this.storageConfiguration, containerName, blobName);
+            string fileName = "azure-error-v6.txt";
+            
+            var customerBlobRepository = new CustomerBlobStorageRepository(this.storageConfiguration, containerName);
+            customerBlobRepository.UploadFile(fileName);
+        }
 
+        public void TestDownloadBlob()
+        {
+            string fileName = "azure-error-v5.txt";
+            string downloadFileName = $"download-{fileName}";
+
+            var customerBlobRepository = new CustomerBlobStorageRepository(this.storageConfiguration, containerName);
+            customerBlobRepository.Download(fileName, downloadFileName);
         }
 
         public void EnqueueMessage(string orderID, string customerID)
