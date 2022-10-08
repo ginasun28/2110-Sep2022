@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace baez2getmember
 {
-    public static class Function1
+    public static class GetMemberInfo2
     {
         [FunctionName("GetMemberInfo2")]
         public static async Task<IActionResult> Run(
