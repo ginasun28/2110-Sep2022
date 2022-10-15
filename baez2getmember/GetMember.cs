@@ -10,11 +10,11 @@ using Newtonsoft.Json;
 
 namespace baez2getmember
 {
-    public static class Function1
+    public static class GetMember
     {
-        [FunctionName("GetMemberInfo2")]
+        [FunctionName("GetMember")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");

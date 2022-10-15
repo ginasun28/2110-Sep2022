@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.32802.440
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2110-Sep2022", "2110-Sep2022\2110-Sep2022.csproj", "{A4DC18E4-7C8F-4248-8EE1-9976D558FF8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "baez2getmember", "baez2getmember\baez2getmember.csproj", "{9C8F4AFF-77CF-4FAC-99C0-055C5FE805DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "baez2getmember", "baez2getmember\baez2getmember.csproj", "{9C8F4AFF-77CF-4FAC-99C0-055C5FE805DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
