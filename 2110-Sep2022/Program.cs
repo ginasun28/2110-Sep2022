@@ -25,7 +25,7 @@ namespace _2110_Sep2022
 
 
             // new Program().TestSerialization();
-            //new Program().AddCustomerAccount();
+            new Program().AddCustomerAccount();
             //new Program().GetCustomerAccount();
             //new Program().Query();
 
@@ -120,8 +120,8 @@ namespace _2110_Sep2022
         {
             var customerAccount = new CustomerAccount()
             {
-                PartitionKey = "C015",  // Customer ID - has to be Unique ID
-                RowKey = "200002",      // Account ID - has to be Unique for each customer
+                PartitionKey = "C015New",  // Customer ID - has to be Unique ID
+                RowKey = "200001",      // Account ID - has to be Unique for each customer
                 InterestRate = 2,
                 IsAccountActive = true,
             };
